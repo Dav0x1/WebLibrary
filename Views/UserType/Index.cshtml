@@ -1,0 +1,113 @@
+﻿@model List<UserTypeModel>
+
+@{
+    ViewBag.Title = "User List";
+}
+<div class="text-white row g-0 rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative p-3">
+    <h3>Add new type</h3>
+    @using (Html.BeginForm("AddUserType", "UserType", FormMethod.Post))
+    {
+        <label for="typeName" class="text-white">Name:</label>
+        <input type="text" id="typeName" name="typeName" required />
+
+        <button type="submit" class="btn btn-primary">Add</button>
+    }
+
+    @using (Html.BeginForm("UpdateUserTypes", "UserType", FormMethod.Post))
+    {
+        <table class="table text-white mt-5">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>IsAdmin</th>
+                    <th>CanAcceptRegistration</th>
+                    <th>CanManageBooks</th>
+                    <th>CanManageReaders</th>
+                    <th>CanManageRentals</th>
+                    <th>CanMakePosts</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model[i].Name
+                            @Html.HiddenFor(m => m[i].Id)
+                            @Html.HiddenFor(m => m[i].Name)
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m[i].IsAdmin, new { @class = "form-check-input" })
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m[i].CanAcceptRegistration, new { @class = "form-check-input" })
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m[i].CanManageBooks, new { @class = "form-check-input" })
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m[i].CanManageReaders, new { @class = "form-check-input" })
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m[i].CanManageRentals, new { @class = "form-check-input" })
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m[i].CanMakePosts, new { @class = "form-check-input" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    }
+</div>
+
+<div class="text-white row g-0 rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative p-3">
+    <h2>User</h2>
+
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Users != null)
+            {
+                foreach (var user in ViewBag.Users)
+                {
+                    <tr>
+                    @using (Html.BeginForm("UpdateUserRole", "UserType", FormMethod.Post))
+                    {
+                        <td>@user.Email</td>
+                        <td>
+                            <select name="userRoles" class="form-control">
+                                @if (ViewBag.UserRoles != null)
+                                {
+                                    foreach (var role in ViewBag.UserRoles)
+                                    {
+                                        <option value="@role.Id" selected="@(role == user.UserType)">@role.Name</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </td>
+                    }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">No user emails available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

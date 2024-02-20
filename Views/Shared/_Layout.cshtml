@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebLibrary</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebLibrary.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-image" style="background-image: url('@Url.Content("~/images/background_1.jpg")')">
+    <div class="container min-vh-100">
+        <header class="border-bottom lh-1 py-3">
+            <nav class="row flex-nowrap justify-content-between align-items-center">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-4 text-center">
+                        <a class="nav-link text-white h2" asp-area="" asp-controller="Home" asp-action="Index">WebLibrary</a>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end align-items-center">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-sm btn-outline-secondary text-white border-white" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                            <a class="btn btn-sm btn-outline-secondary text-white border-white m-lg-1" asp-area="" asp-controller="Registration" asp-action="Index">Sign up</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm btn-outline-secondary text-white border-white m-lg-1" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                        }
+                    </div>
+                </div>
+            </nav>
+        </header>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <nav class="navbar navbar-expand-lg border-bottom">
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="Account" asp-action="Index">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="Books" asp-action="Index">Books</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <nav class="navbar navbar-expand-lg border-bottom">
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto ">
+                        <li class="nav-item active">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="News" asp-action="Index">News</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="NewUsers" asp-action="Index">NewUsers</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="BookManagment" asp-action="Index">BookManagment</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="UserType" asp-action="Index">UserPrivileges</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="btn btn-sm text-white m-lg-1 shadow-lg rounded" asp-controller="Rentals" asp-action="Index">UserRentals</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        }
+        @RenderBody()
+    </div>
+
+    <footer class="footer text-muted">
+        <div class="container text-white">
+            &copy; 2023 - WebLibrary - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

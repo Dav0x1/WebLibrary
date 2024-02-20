@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "PasswordChange";
+}
+<div class="d-flex justify-content-center mt-3">
+    <form method="post" asp-controller="Account" asp-action="ChangePassword" class="shadow-lg rounded p-5 text-white">
+        <h3>Change Password</h3>
+        <div class="form-group mb-3">
+            <label>Current password</label>
+            <input type="password" class="form-control" placeholder="*********" name="cpassword" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label>New Password</label>
+            <input type="password" class="form-control" placeholder="*********" name="npassword" />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-outline-secondary text-white border-white mb-4">Change</button>
+        </div>
+        @if (ViewBag.Notification != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
+                @ViewBag.Notification
+            </div>
+        }
+    </form>
+</div>

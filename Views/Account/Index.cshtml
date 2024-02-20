@@ -1,0 +1,28 @@
+﻿@model UserModel
+
+@{
+    ViewData["Title"] = "Account";
+}
+
+<div class="shadow-lg rounded p-5 text-white">
+    <table>
+        <tr>
+            <th>Name:</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Surname:</th>
+            <td>@Model.Surname</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>User Type:</th>
+            <td>@Model.UserType.Name</td>
+        </tr>
+    </table>
+
+    <a asp-controller="Account" asp-action="ChangePassword" asp-area="" class="btn btn-info mt-2 p-2">Change password</a>
+</div>

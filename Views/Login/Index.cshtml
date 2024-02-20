@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+<div class="d-flex justify-content-center mt-3">
+    <form method="post" asp-controller="Login" asp-action="Index" class="shadow-lg rounded p-5 text-white">
+        <h3 class="text-center">Login</h3>
+
+        <div class="form-group mb-3">
+            <label>E-mail</label>
+            <input type="email" class="form-control" placeholder="example@gmail.com" name="email" />
+            <small>We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group mb-2">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="**********" name="password" />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-outline-secondary text-white border-white mb-4">Login</button>
+        </div>
+
+        <a class="link-light" asp-controller="Login" asp-action="PasswordRemind">Forgot password?</a>
+
+        @if (ViewBag.Notification != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
+                @ViewBag.Notification
+            </div>
+        }
+    </form>
+</div>

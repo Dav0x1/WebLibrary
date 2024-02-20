@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<main role="main">
+    <div class="mt-5 pb-5 text-white text-center border-bottom">
+        <span>
+            WebLibrary enables users to order books online.After placing an online order,<br />
+            readers retrieve their physical copies at the specified library location, <br />
+            offering a seamless blend of digital convenience and a local, tangible reading experience.<br />
+            In order to get access login or sign up
+        <span/>
+    </div>
+    <div class="mt-5 text-white">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative p-3">
+                    <h3 class ="mb-4 text-center">News</h3>
+                    <!-- Place for informations which can be added by admin (load from database) -->
+                    @if (ViewBag.NewsData != null)
+                    {
+                        var newsCount = ViewBag.NewsData.Count;
+                        var currentIndex = 0;
+                        @foreach (var newsItem in ViewBag.NewsData)
+                        {
+                            <div>
+                                <h4>@newsItem.Title</h4>
+                                <p>@newsItem.Description</p>
+                                <p class="text-muted"><small>@newsItem.CreatedDate.ToString("hh:mm dd.MM.yyyy")</small></p>
+                                @if (currentIndex != newsCount - 1)
+                                {
+                                    <hr />
+                                }
+                            </div>
+                            currentIndex++;
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative p-3">
+                    <h3 class="mb-4 text-center">New available books</h3>
+                    <!-- Place for new books which are available (load from database) -->
+                    @if (ViewBag.BooksData != null)
+                    {
+                        var booksCount = ViewBag.NewsData.Count;
+                        var currentIndex = 0;
+                        @foreach (var booksItem in ViewBag.BooksData)
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <h4>@booksItem.Title</h4>
+                                    <p>@booksItem.Description</p>
+                                </div>
+                                <div class="col">
+                                    <img src="/images/@booksItem.ImageUrl" alt="Obraz" width=" 200px">
+                                </div>
+                                <p class="text-muted"><small>@booksItem.Date.ToString("hh:mm dd.MM.yyyy")</small></p>
+                                @if (currentIndex != booksCount)
+                                {
+                                    <hr />
+                                }
+
+                            </div>
+                            currentIndex++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

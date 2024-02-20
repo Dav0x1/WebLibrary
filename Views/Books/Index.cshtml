@@ -1,0 +1,85 @@
+﻿@model BookModel
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="text-white row g-0 rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative p-3">
+
+    @using (Html.BeginForm("Index", "Books", FormMethod.Post))
+    {
+        <div>
+            <label for="searchTerm">Search:</label>
+            <input type="text" name="searchTerm" id="searchTerm" value="@ViewBag.CurrentFilter" />
+
+            <label for="searchBy">Search by:</label>
+            <select name="searchBy" id="searchBy" >
+                <option value="Title">Title</option>
+                <option value="Tags">Tags</option>
+                <option value="Author">Author</option>
+                <option value="Description">Description</option>
+            </select>
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    }
+
+    @using (Html.BeginForm("CheckCart", "Books", FormMethod.Get))
+    {
+        <button type="submit" class="btn btn-primary mt-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"></path>
+            </svg>
+            Check @ViewBag.CartQuantity
+        </button>
+    }
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>Available amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (ViewBag.Books!=null)
+            {
+                @foreach (var book in ViewBag.Books)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td class="row">
+                            <div class="col-auto">
+                                <img src="/images/@book.ImageUrl" alt="Obraz" width="70px"><br />
+                                <a href="/images/@book.ImageUrl" download="/images/@book.ImageUrl">
+                                    <button type="button" class="btn btn-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col">
+                                @book.Description
+                            </div>
+                        </td>
+                        <td>@book.Amount</td>
+                        <td>
+                            @if(book.Amount >0){
+                                @using (Html.BeginForm("AddToCart", "Books", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="id" value="@book.Id" />
+                                    <input type="submit" value="Add" class="btn btn-primary mt-5" />
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

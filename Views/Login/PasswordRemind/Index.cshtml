@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "PasswordRemind";
+}
+<div class="d-flex justify-content-center mt-3">
+    <form method="post" asp-controller="Login" asp-action="PasswordRemind" class="shadow-lg rounded p-5 text-white">
+        <h3>Remind Password</h3>
+        <div class="form-group mb-3">
+            <label>E-mail</label>
+            <input type="email" class="form-control" placeholder="example@gmail.com" name="email" />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-outline-secondary text-white border-white mb-4">Send</button>
+        </div>
+        @if (ViewBag.Notification != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
+                @ViewBag.Notification
+            </div>
+        }
+    </form>
+</div>

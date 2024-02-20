@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "NewUsers";
+}
+
+<div class="bg-transparent shadow-lg rounded mx-5 text-white">
+    <table class ="table user-list text-white mt-5">
+        <thead>
+            <tr>
+                <th><span>Name</span></th>
+                <th><span>Surname</span></th>
+                <th><span>Email</span></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form method="post" asp-controller="NewUsers" asp-action="Index" class="shadow-lg rounded p-5 text-white">
+                @{
+                    if (ViewBag.Users != null)
+                    {
+                        foreach (var user in ViewBag.Users)
+                        {
+                            <tr>
+                                <td>
+                                    @user.Name
+                                </td>
+                                <td>
+                                    @user.Surname
+                                </td>
+                                <td>
+                                    @user.Email
+                                </td>
+                                <td>
+                                    <button type="submit" name="buttonId" value="@user.Id" class="btn btn-success">Verify</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </form>
+        </tbody>
+    </table>
+</div>

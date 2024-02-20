@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "News";
+}
+
+<div class="col-md-6 offset-md-3 bg-transparent shadow-lg rounded">
+    <h2 class="mb-3 text-white mt-5 text-center">Create News</h2>
+    <form method="post" asp-controller="News" asp-action="Index" class=" px-5 pb-5">
+        <div class="form-group text-white">
+            <label>Title</label>
+            <input type="text" class="form-control" name="title" placeholder="Insert title">
+        </div>
+        <div class="form-group text-white">
+            <label>Description</label>
+            <textarea class="form-control" name="description" rows="3" placeholder="Insert description"></textarea>
+        </div>
+        @if (ViewBag.Notification != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show p-2 mt-2" role="alert">
+                @ViewBag.Notification
+            </div>
+        }
+        <button type="submit" class="btn btn-secondary mt-2">Create</button>
+    </form>
+    
+</div>

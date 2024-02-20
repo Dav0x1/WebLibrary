@@ -1,0 +1,53 @@
+﻿@model List<OrderHistoryModel> // Replace Rental with your actual model type
+
+<div class="bg-transparent shadow-lg rounded mx-5 text-white">
+    <h2 class="text-white">Rentals</h2>
+
+    @if (Model.Any())
+    {
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Book Title</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rental in Model)
+                {
+                    <tr>
+                        <td>@rental.Id</td>
+                        <td>
+                            @foreach (var book in rental.Books)
+                            {
+                                <h4>@book.Title</h4>
+                            }
+                        </td>
+                        <td>
+                            @if (@rental.haveReturned)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    Returned
+                                </div>
+                            }
+                            else
+                            {
+                                @using (Html.BeginForm("Return", "Rentals", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="rentalId" value="@rental.Id" />
+                                    <button type="submit" class="btn btn-primary">Return</button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-white">No rentals found for this user.</p>
+    }
+</div>

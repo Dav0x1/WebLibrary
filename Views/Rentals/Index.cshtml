@@ -1,0 +1,43 @@
+﻿@model List<UserTypeModel>
+
+@{
+    ViewBag.Title = "User List";
+}
+
+
+<div class="text-white row g-0 rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative p-3">
+    <h2>Users</h2>
+
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Users != null)
+            {
+                foreach (var user in ViewBag.Users)
+                {
+                    <tr>
+                        @using (Html.BeginForm("Index", "Rentals", FormMethod.Post))
+                        {
+                            <td>@user.Email</td>
+                            <td>
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-primary">Display Rentals</button>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">No user emails available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

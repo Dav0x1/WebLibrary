@@ -1,0 +1,40 @@
+﻿@model BookModel
+
+@{
+    ViewBag.Title = "Edit Book";
+}
+<div class="bg-transparent shadow-lg rounded mx-5 text-white">
+    <h2>Edit Book</h2>
+
+    @using (Html.BeginForm("UpdateBook", "BookManagment", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <label for="Title">Title:</label>
+            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="Description">Description:</label>
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="Author">Author:</label>
+            @Html.TextBoxFor(model => model.Author, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="ImageUrl">Image:</label>
+                @Html.TextBoxFor(model => model.ImageUrl, new { type = "file", id = "Image", name = "image", accept = "image/*", @class = "form-control-file" })
+            </div>
+
+        <div class="form-group">
+            <label for="Amount">Amount:</label>
+            @Html.TextBoxFor(model => model.Amount, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    }
+</div>

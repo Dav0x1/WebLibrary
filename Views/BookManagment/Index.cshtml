@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "BookManagment";
+}
+
+<div class="mt-4 text-white">
+    <!-- New Book Form -->
+    <div class="bg-transparent shadow-lg rounded mx-5">
+        <div class=" text-center mt-5 ">
+            <h1>Add Book</h1>
+        </div>
+        <form method="post" asp-controller="BookManagment" asp-action="AddBook" enctype = "multipart/form-data" class="p-5 text-white">
+            <div class="row">
+                <!-- Title -->
+                <div class="form-group col-md-6">
+                    <label for="Title">Title *</label>
+                    <input type="text" class="form-control" id="Title" name="title">
+                </div>
+                <!-- Author -->
+                <div class="form-group col-md-6">
+                    <label for="Author">Author *</label>
+                    <input type="text" class="form-control" id="Author" name="author">
+                </div>
+            </div>
+            <div class="row">
+                <!-- Image attachment-->
+                <div class="form-group mt-2">
+                    <label for="Image">Image</label>
+                    <input type="file" id="Image" name="image" accept="image/*" class="form-control-file" required="required">
+                </div>
+            </div>
+            <div class="row">
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="Description">Description*</label>
+                    <textarea id="Description" name="description" class="form-control" rows="4" required="required">
+                    </textarea>
+                </div>
+            </div>
+            <div class="row">
+                    <label for="Tags">Tags</label>
+            </div>
+            <div class="row">
+                <!-- Tags -->
+                <div class="form-group  col-md-6">
+                    <input type="text" class="form-control" id="Tags" name="Tags">
+                </div>
+                <!-- Submit -->
+                <div class="form-group  col-md-6">
+                    <button type="submit" class="btn btn-success form-control">Confirm</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <h1>Book List</h1>
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Amount</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Books != null)
+            {
+                @foreach (var book in ViewBag.Books)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.Amount</td>
+                        <td>
+                            @using (Html.BeginForm("Edit", "BookManagment", FormMethod.Get))
+                            {
+                                <input type="hidden" name="id" value="@book.Id" />
+                                <input class="btn btn-primary btn-sm" type="submit" value="Edit" />
+                            }
+                            @using (Html.BeginForm("RemoveBook", "BookManagment", FormMethod.Post))
+                            {
+                                <input type="hidden" name="id" value="@book.Id" />
+                                <input class="btn btn-primary btn-sm" type="submit" value="Remove" />
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
